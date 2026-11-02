@@ -1,22 +1,14 @@
 # 05: Renovate dependency updates
 
-Status: ready-for-agent
+**What to build:** Renovate configuration so that tool versions pinned in mise, npm dev dependencies, and SHA-pinned GitHub Actions all receive update pull requests. Dependabot is not used because it does not support mise.
 
-Blocked by: 04
+Policy: Renovate's recommended config, GitHub Action digest pinning with version comments, dev tooling grouped into fewer pull requests, no auto-merge, and the dependency dashboard enabled. The maintainer installs the Renovate GitHub App in ticket 07; this ticket only adds and validates the configuration.
 
-Spec: `.scratch/npm-package/spec.md`
+**Blocked by:** 04
 
-## What to build
+**Status:** ready-for-agent
 
-Configure Renovate so that tool versions pinned in mise, npm dev dependencies, and SHA-pinned GitHub Actions all receive update pull requests. Dependabot is not used; it does not support mise.
-
-Policy: Renovate's recommended config, GitHub Action digest pinning with version comments, dev tooling grouped into fewer PRs, no auto-merge, and the dependency dashboard enabled.
-
-The Renovate GitHub App itself is installed by the maintainer in ticket 07; this ticket only adds and validates the configuration.
-
-## Acceptance criteria
-
-- [ ] A Renovate config in the repository implements the policy above.
-- [ ] Renovate's config validator passes, run through a mise task at a pinned version (no unpinned `npx`).
+- [ ] The repository's Renovate config implements the policy above.
+- [ ] Renovate's config validator passes, run through a mise task at a pinned version with no unpinned `npx`.
 - [ ] The config covers the mise manager, npm, and GitHub Actions.
-- [ ] Contribution guidance explains how dependency updates arrive and that they are reviewed by hand.
+- [ ] Contribution guidance explains how dependency updates arrive and that each is reviewed by hand.
