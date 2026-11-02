@@ -6,6 +6,8 @@
 
 Pi Smart Zone is a Pi extension that shows the active context usage reported by Pi above the editor. Its labels are heuristics about when reasoning quality may drift—not guarantees about model quality or context limits. The extension never compacts, resets, or otherwise changes your session; you stay in control.
 
+[Matt Pocock’s skills](https://github.com/mattpocock/skills) discuss the smart zone and dump zone; this extension is inspired by that framing and adapts it into a live context-usage widget. Its thresholds and labels are project-specific heuristics.
+
 > **Pre-release:** This package has not been published to npm. Until the first public `0.1.0` release, install from GitHub or a local checkout. The npm command below is for use after that release.
 
 ## Widget states
