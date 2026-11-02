@@ -2,11 +2,11 @@
 
 ### Issue tracker
 
-GitHub Issues are the project tracker; use the GitHub CLI through mise. See `docs/agents/issue-tracker.md`.
+Local Markdown: specs and tickets live under `.scratch/<feature-slug>/` in this repo. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 
-Use the five canonical triage labels. See `docs/agents/triage-labels.md`.
+The five canonical triage roles, recorded as a `Status:` line in each ticket file. See `docs/agents/triage-labels.md`.
 
 ### Domain docs
 
