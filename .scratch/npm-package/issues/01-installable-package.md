@@ -8,12 +8,16 @@ Note: see the npm-package spec for rationale. The local branch `prototype/npm-pa
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** ready-for-human
 
-- [ ] The extension source is byte-for-byte identical to the existing implementation.
-- [ ] The five existing tests pass through `mise run test`, driving the extension through its default export with a fake Pi API and context (seam 1).
-- [ ] `mise run install` installs development dependencies from a committed lockfile without running lifecycle scripts.
-- [ ] `mise run pack:check` runs an `npm pack` dry run and fails unless the packed files are exactly the extension source, `package.json`, `README.md`, and `LICENSE`, plus `CHANGELOG.md` once it exists (seam 2). A stray file in the published directory makes it fail.
-- [ ] `package.json` declares the `pi.extensions` entry point, the `pi-package` keyword, the peer dependency, public publish access, repository, bugs, and homepage URLs, and the Node engine range; it has no `dependencies`.
-- [ ] Node is pinned in mise, and tasks need no executable bit.
-- [ ] Loading the package in Pi from a local checkout shows the widget, or the ticket records why this manual check could not be run.
+- [x] The extension source is byte-for-byte identical to the existing implementation.
+- [x] The five existing tests pass through `mise run test`, driving the extension through its default export with a fake Pi API and context (seam 1).
+- [x] `mise run install` installs development dependencies from a committed lockfile without running lifecycle scripts.
+- [x] `mise run pack:check` runs an `npm pack` dry run and fails unless the packed files are exactly the extension source, `package.json`, `README.md`, and `LICENSE`, plus `CHANGELOG.md` once it exists (seam 2). A stray file in the published directory makes it fail.
+- [x] `package.json` declares the `pi.extensions` entry point, the `pi-package` keyword, the peer dependency, public publish access, repository, bugs, and homepage URLs, and the Node engine range; it has no `dependencies`.
+- [x] Node is pinned in mise, and tasks need no executable bit.
+- [x] Loading the package in Pi from a local checkout shows the widget, or the ticket records why this manual check could not be run.
+
+## Comments
+
+The Pi UI is unavailable in this non-interactive agent session, so loading from a local checkout could not be visually confirmed. The extension's default export is instead exercised through the fake Pi API/context in the five `node:test` cases.

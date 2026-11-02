@@ -1,0 +1,46 @@
+{
+	"name": "@jotu_myraas/pi-smart-zone",
+	"version": "0.0.0",
+	"description": "Pi extension that shows whether the active context is in the smart zone, drifting, or due for a refocus.",
+	"keywords": [
+		"pi-package",
+		"pi",
+		"pi-extension",
+		"context",
+		"smart-zone"
+	],
+	"license": "MIT",
+	"author": "Joacim Turesson",
+	"homepage": "https://github.com/jotu/pi-smart-zone#readme",
+	"bugs": {
+		"url": "https://github.com/jotu/pi-smart-zone/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/jotu/pi-smart-zone.git"
+	},
+	"type": "module",
+	"files": [
+		"extensions/",
+		"CHANGELOG.md"
+	],
+	"pi": {
+		"extensions": [
+			"./extensions/smart-zone.ts"
+		]
+	},
+	"peerDependencies": {
+		"@earendil-works/pi-coding-agent": "*"
+	},
+	"engines": {
+		"node": ">=22.19.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.6.4",
+		"@earendil-works/pi-coding-agent": "1.5.0",
+		"typescript": "7.0.2"
+	}
+}

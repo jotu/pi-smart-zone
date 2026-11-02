@@ -1,0 +1,88 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release_please:
+    name: Release Please
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Create release tags and GitHub releases.
+      pull-requests: write # Open and update release pull requests.
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+    steps:
+      - name: Run release-please
+        id: release
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+          skip-labeling: true
+
+  publish_dry_run:
+    name: Release dry run
+    needs: release_please
+    if: ${{ needs.release_please.outputs.release_created == 'true' && vars.NPM_PUBLISH_ENABLED != 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install mise tools
+        uses: jdx/mise-action@f5be966e4a917d54244728e6a5fdcd1d93a35e6c # v5.2.6
+        with:
+          cache: false
+
+      - name: Install locked npm dependencies
+        run: mise run install
+
+      - name: Run checks
+        run: mise run check
+
+      - name: Dry-run npm publish
+        run: npm publish --dry-run
+
+  publish:
+    name: Publish to npm
+    needs: release_please
+    if: ${{ needs.release_please.outputs.release_created == 'true' && vars.NPM_PUBLISH_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: npm
+    permissions:
+      contents: read
+      id-token: write # Authenticate to npm for provenance publishing via OIDC.
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install mise tools
+        uses: jdx/mise-action@f5be966e4a917d54244728e6a5fdcd1d93a35e6c # v5.2.6
+        with:
+          cache: false
+
+      - name: Install locked npm dependencies
+        run: mise run install
+
+      - name: Run checks
+        run: mise run check
+
+      - name: Publish with npm provenance
+        run: npm publish --provenance

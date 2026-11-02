@@ -8,11 +8,15 @@ Contribution guidance covers development setup through mise, the task list, the 
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** ready-for-human
 
-- [ ] `mise run typecheck` type-checks the extension against Pi's published types and fails on a deliberate type error.
-- [ ] `mise run lint` checks linting and formatting and fails on unformatted code; `mise run format` fixes it.
-- [ ] `mise run check` runs typecheck, lint, test, and pack check, and fails if any of them fails.
-- [ ] The extension's behavior is unchanged; any formatting change to it is whitespace-only and noted.
-- [ ] Contribution guidance documents setup, tasks, the publish allow-list, and commit conventions.
-- [ ] All tasks run under Bash on macOS and Linux; nothing relies on GNU-only tool flags.
+- [x] `mise run typecheck` type-checks the extension against Pi's published types and fails on a deliberate type error.
+- [x] `mise run lint` checks linting and formatting and fails on unformatted code; `mise run format` fixes it.
+- [x] `mise run check` runs typecheck, lint, test, and pack check, and fails if any of them fails.
+- [x] The extension's behavior is unchanged; any formatting change to it is whitespace-only and noted.
+- [x] Contribution guidance documents setup, tasks, the publish allow-list, and commit conventions.
+- [x] All tasks run under Bash on macOS and Linux; nothing relies on GNU-only tool flags.
+
+## Comments
+
+Added type-checking, Biome lint/format, aggregate verification tasks, and contributor guidance. Biome only changed line breaks in `extensions/smart-zone.ts`; the diff is whitespace-only, with no behavior change. Deliberate type and formatting errors were rejected, and formatting corrected the latter.

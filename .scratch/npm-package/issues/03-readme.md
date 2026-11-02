@@ -6,10 +6,14 @@ It covers what the widget shows (the four glossary states with their thresholds 
 
 **Blocked by:** 02
 
-**Status:** ready-for-agent
+**Status:** ready-for-human
 
-- [ ] Every install command matches Pi's documented package sources and options.
-- [ ] Every mise task mentioned exists and behaves as described.
-- [ ] Troubleshooting covers: no widget (not installed, needs reload, or print and JSON modes have no UI), `CONTEXT USAGE PENDING` after start or compaction, a duplicate older copy in an extensions directory, and package install failures.
-- [ ] Widget state names match the glossary.
-- [ ] `mise run pack:check` still passes with the README included.
+- [x] Every install command matches Pi's documented package sources and options.
+- [x] Every mise task mentioned exists and behaves as described.
+- [x] Troubleshooting covers: no widget (not installed, needs reload, or print and JSON modes have no UI), `CONTEXT USAGE PENDING` after start or compaction, a duplicate older copy in an extensions directory, and package install failures.
+- [x] Widget state names match the glossary.
+- [x] `mise run pack:check` still passes with the README included.
+
+## Comments
+
+README replaced with pre-release installation, state, troubleshooting, and contributor guidance. Pi 1.5.0 package/CLI docs and mise task names were checked; `mise run pack:check` passes.

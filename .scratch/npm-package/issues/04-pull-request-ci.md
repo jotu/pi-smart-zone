@@ -6,11 +6,16 @@ CI installs tools through the mise GitHub Action, so CI and local development us
 
 **Blocked by:** 02
 
-**Status:** ready-for-agent
+**Status:** ready-for-human
 
-- [ ] A workflow triggers on pull requests and pushes to `main` and runs `mise run check` on a Linux runner.
-- [ ] Every `uses:` reference is a 40-character SHA followed by a version comment.
-- [ ] Workflow-level permissions are read-only, and checkout does not persist credentials.
-- [ ] actionlint and zizmor are pinned in mise, run by a mise task, and pass with no findings, or each suppressed finding is justified inline.
-- [ ] `mise run check` includes workflow linting and passes locally.
-- [ ] Contribution guidance mentions the new task.
+- [x] A workflow triggers on pull requests and pushes to `main` and runs `mise run check` on a Linux runner.
+- [x] Every `uses:` reference is a 40-character SHA followed by a version comment.
+- [x] Workflow-level permissions are read-only, and checkout does not persist credentials.
+- [x] actionlint and zizmor are pinned in mise and run by a mise task.
+- [x] Workflow lint passes with no findings.
+- [x] `mise run check` includes workflow linting and passes locally.
+- [x] Contribution guidance mentions the new task.
+
+## Completion note
+
+Implemented PR and `main`-push CI with read-only permissions, pinned actions, and mise-managed workflow linting. `mise run check` and a pedantic zizmor audit pass locally with no findings.

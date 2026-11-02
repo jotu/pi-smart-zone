@@ -1,2 +1,50 @@
 [tools]
 node = "24.22.2"
+actionlint = "1.7.12"
+zizmor = "1.31.1"
+"npm:renovate" = "44.206.0"
+
+[tasks.install]
+description = "Install locked development dependencies without lifecycle scripts"
+shell = "bash -euo pipefail -c"
+run = "npm ci --ignore-scripts"
+
+[tasks.typecheck]
+description = "Type-check the extension without emitting files"
+shell = "bash -euo pipefail -c"
+run = "./node_modules/.bin/tsc --project tsconfig.json"
+
+[tasks.lint]
+description = "Check code linting and formatting"
+shell = "bash -euo pipefail -c"
+run = "./node_modules/.bin/biome check ."
+
+[tasks.format]
+description = "Format code and JSON files"
+shell = "bash -euo pipefail -c"
+run = "./node_modules/.bin/biome format --write ."
+
+[tasks.test]
+description = "Run the Node.js test suite"
+shell = "bash -euo pipefail -c"
+run = "node --test 'test/**/*.test.mjs'"
+
+[tasks."pack:check"]
+description = "Verify the exact npm package file list"
+shell = "bash -euo pipefail -c"
+run = "bash scripts/pack-check.sh"
+
+[tasks."workflow:lint"]
+description = "Lint GitHub Actions workflows with actionlint and zizmor"
+shell = "bash -euo pipefail -c"
+run = "actionlint && zizmor .github/workflows"
+
+[tasks."renovate:validate"]
+description = "Validate the Renovate configuration"
+shell = "bash -euo pipefail -c"
+run = "renovate-config-validator --strict"
+
+[tasks.check]
+description = "Run typecheck, lint, workflow lint, Renovate validation, tests, and package contents check"
+shell = "bash -euo pipefail -c"
+run = "mise run typecheck && mise run lint && mise run workflow:lint && mise run renovate:validate && mise run test && mise run pack:check"

@@ -1,0 +1,26 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.6.4/schema.json",
+	"files": {
+		"includes": [
+			"extensions/**/*.ts",
+			"test/**/*.mjs",
+			"package.json",
+			"tsconfig.json",
+			"biome.json"
+		]
+	},
+	"formatter": {
+		"enabled": true
+	},
+	"javascript": {
+		"formatter": {
+			"trailingCommas": "none"
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"preset": "recommended"
+		}
+	}
+}
