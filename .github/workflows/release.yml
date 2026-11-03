@@ -51,9 +51,6 @@ jobs:
       - name: Install locked npm dependencies
         run: mise run install
 
-      - name: Run checks
-        run: mise run check
-
       - name: Dry-run npm publish
         run: npm publish --dry-run
 

@@ -26,6 +26,7 @@ Run tasks from the repository root:
 | `mise run workflow:lint` | Lint GitHub Actions workflows with actionlint and zizmor. |
 | `mise run renovate:validate` | Validate the Renovate configuration with the pinned CLI. |
 | `mise run test:min-node` | Run the tests on the minimum supported Node.js version (CI runs this too). |
+| `mise run test:latest-pi` | Type-check and test against the latest Pi 1.x (modifies `node_modules` only; CI runs this too). |
 | `mise run commits:lint` | Check that your commits since `origin/main` are Conventional Commits (CI also checks the PR title). |
 | `mise run check` | Run typecheck, lint, workflow lint, Renovate validation, tests, and the package-contents check. |
 

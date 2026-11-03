@@ -73,6 +73,18 @@ pi install --local git:github.com/jotu/pi-smart-zone
 
 Use the npm source in this command instead after the first public release if preferred.
 
+## Compatibility
+
+Requires Pi `>=1.5.0 <2` (the version range in `peerDependencies`) and Node.js 22.19 or newer. CI tests the locked Pi 1.5.0 and, weekly and on every change, the latest Pi 1.x release.
+
+## Uninstall
+
+```sh
+pi remove git:github.com/jotu/pi-smart-zone
+```
+
+Use the same source you installed from (for the npm source, `npm:@jotu_myraas/pi-smart-zone`), add `--local` for a project install, then restart Pi or run `/reload`.
+
 ## Usage and configuration
 
 Once loaded in an interactive Pi session, the widget appears above the editor. There is nothing to configure in this version: the thresholds and labels are fixed. The extension does not render in print or JSON modes, which have no interactive UI.

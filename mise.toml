@@ -54,6 +54,11 @@ description = "Run typecheck, lint, workflow lint, Renovate validation, tests, a
 shell = "bash -euo pipefail -c"
 run = "mise run typecheck && mise run lint && mise run workflow:lint && mise run renovate:validate && mise run test && mise run pack:check"
 
+[tasks."test:latest-pi"]
+description = "Type-check and test against the latest Pi 1.x release without changing the lockfile"
+shell = "bash -euo pipefail -c"
+run = "npm install --no-save --ignore-scripts '@earendil-works/pi-coding-agent@>=1.5.0 <2' && mise run typecheck && mise run test"
+
 [tasks."test:min-node"]
 description = "Run the tests on the minimum supported Node.js version from package.json engines"
 shell = "bash -euo pipefail -c"
