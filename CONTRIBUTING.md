@@ -25,6 +25,7 @@ Run tasks from the repository root:
 | `mise run pack:check` | Check the exact file list npm would publish. |
 | `mise run workflow:lint` | Lint GitHub Actions workflows with actionlint and zizmor. |
 | `mise run renovate:validate` | Validate the Renovate configuration with the pinned CLI. |
+| `mise run test:min-node` | Run the tests on the minimum supported Node.js version (CI runs this too). |
 | `mise run check` | Run typecheck, lint, workflow lint, Renovate validation, tests, and the package-contents check. |
 
 The tasks use Bash and are intended to work on macOS and Linux.
@@ -41,22 +42,17 @@ Use [Conventional Commits](https://www.conventionalcommits.org/), for example `f
 
 ## Releases
 
-[release-please](https://github.com/googleapis/release-please/blob/main/docs/manifest-releaser.md) reads Conventional Commits on `main` and maintains a release pull request with the package version, lockfile, manifest, and changelog updates. The supported per-package [`initial-version` option](https://github.com/googleapis/release-please/blob/main/schemas/config.json), which the [release-please action docs](https://github.com/googleapis/release-please-action#package-options) map to `packages[path].initial-version`, is set to `0.1.0` here; the initial run still needs a releasable Conventional Commit, such as `feat: add a feature`, to open the first release pull request. Do not rely on arbitrary non-conventional historical commits to trigger it. Before 1.0.0, breaking changes bump the minor version. Do not edit the package version or release changelog by hand; review and merge the release pull request when ready to release.
+Releases are automated by release-please from Conventional Commits; do not edit the version or changelog by hand. Maintainers: see [docs/releasing.md](docs/releasing.md).
 
-Merging that release pull request into `main` is the release trigger: release-please creates the GitHub release and tag, then the workflow chooses exactly one npm path:
+## Design decisions and language
 
-- **Publishing enabled:** the repository variable `NPM_PUBLISH_ENABLED` must equal the string `true`, and the `npm` GitHub environment must require maintainer approval. Only this publish job has `id-token: write`; npm authenticates through OIDC trusted publishing and generates provenance. No npm token is stored or referenced.
-- **Publishing disabled (default):** if the variable is unset or anything other than `true`, the publish job is ineligible. The dry-run job runs `mise run check` and `npm publish --dry-run` instead.
+- [GLOSSARY.md](GLOSSARY.md) defines the project's terms; use them in issues, code, and docs.
+- [docs/adr/](docs/adr/) records hard-to-reverse decisions. Read the relevant ADR before proposing a change that conflicts with it.
 
-The workflow follows [GitHub's `GITHUB_TOKEN` least-privilege guidance](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#permissions-for-the-github_token). It also requires GitHub Actions to be allowed to create pull requests in the repository's Actions settings. Before enabling publishing, the maintainer must manually:
+## Working with AI agents
 
-1. Enable **Allow GitHub Actions to create and approve pull requests** in repository Settings → Actions → General.
-2. Create the `npm` environment in repository Settings → Environments and add the maintainer as a required reviewer.
-3. Configure the npm trusted publisher in the package's npm settings: choose GitHub Actions, set owner `jotu`, repository `pi-smart-zone`, workflow filename `release.yml`, and environment `npm`. The configured package `repository.url` must match this GitHub repository. The pinned Node 24.22.2 toolchain includes npm 11.19.1, meeting npm's documented minimums of Node 22.14.0 and npm 11.5.1.
-4. Verify the trusted publisher works, then set the repository Actions variable `NPM_PUBLISH_ENABLED` to exactly `true` when ready to permit approved CI publishing. Leave it unset or false to keep releases on the dry-run path.
+This is a [Pi](https://github.com/earendil-works/pi) extension, and the maintainer develops it with Pi using [Matt Pocock's skills](https://github.com/mattpocock/skills). Agent instructions live in [AGENTS.md](AGENTS.md) and [docs/agents/](docs/agents/). Using Pi or these skills is optional for contributors; the checks above are the only requirement. Local specs and tickets go in the git-ignored `.scratch/` directory.
 
-### First package setup and trusted-publishing evidence
+## Code of conduct and security
 
-The [npm trusted-publishing documentation](https://docs.npmjs.com/trusted-publishers) does **not explicitly answer** whether a trusted publisher can be configured before a package's first publish. It directs maintainers to configure a publisher in that package's npm settings, but does not state whether those settings are available before publication. If the package must exist first, a separately approved placeholder/bootstrap publication may be needed. A bootstrap at `0.1.0` would conflict with the goal that CI publishes the first public `0.1.0`: npm states that a published package name/version combination cannot be reused ([npm publish documentation](https://docs.npmjs.com/cli/v11/commands/npm-publish)). A different placeholder version may avoid that conflict but requires coordinating the package version and provenance plan. The maintainer must resolve the bootstrap, version, and provenance choice before enabling `NPM_PUBLISH_ENABLED`. Do not choose or perform a manual publication as part of this ticket; the bootstrap decision and any publication are human-owned. npm also says a new trusted-publisher configuration must complete a successful publish within two days and is not verified when saved, so plan and approve the bootstrap path before creating the configuration.
-
-Pi reads package changelog entries from `CHANGELOG.md` using version headings such as `## [1.2.0]` or `## 1.2.0 - 2026-01-01`; release-please's version headings are compatible. See Pi's [package changelog guidance](https://github.com/earendil-works/pi/blob/main/docs/packages.md#show-a-changelog).
+Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md). Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md), not in public issues.

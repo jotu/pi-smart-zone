@@ -27,7 +27,7 @@ run = "./node_modules/.bin/biome format --write ."
 [tasks.test]
 description = "Run the Node.js test suite"
 shell = "bash -euo pipefail -c"
-run = "node --test 'test/**/*.test.mjs'"
+run = "node --test 'test/**/*.test.ts'"
 
 [tasks."pack:check"]
 description = "Verify the exact npm package file list"
@@ -48,3 +48,8 @@ run = "renovate-config-validator --strict"
 description = "Run typecheck, lint, workflow lint, Renovate validation, tests, and package contents check"
 shell = "bash -euo pipefail -c"
 run = "mise run typecheck && mise run lint && mise run workflow:lint && mise run renovate:validate && mise run test && mise run pack:check"
+
+[tasks."test:min-node"]
+description = "Run the tests on the minimum supported Node.js version from package.json engines"
+shell = "bash -euo pipefail -c"
+run = "mise exec node@22.19.0 -- node --test 'test/**/*.test.ts'"

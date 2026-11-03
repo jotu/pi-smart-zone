@@ -3,7 +3,7 @@
 	"files": {
 		"includes": [
 			"extensions/**/*.ts",
-			"test/**/*.mjs",
+			"test/**/*.ts",
 			"package.json",
 			"tsconfig.json",
 			"biome.json"

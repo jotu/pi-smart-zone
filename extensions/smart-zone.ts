@@ -4,13 +4,13 @@ import type {
 	ExtensionContext
 } from "@earendil-works/pi-coding-agent";
 
-const STATUS_KEY = "smart-zone";
+const WIDGET_KEY = "smart-zone";
 const SMART_ZONE_LIMIT = 125_000;
 const REFOCUS_LIMIT = 150_000;
 
-function formatStatus(ctx: ExtensionContext): string {
-	const tokens = ctx.getContextUsage()?.tokens;
-	if (tokens === undefined || tokens === null) {
+/** Describe the active context usage; `null` or `undefined` means Pi has no estimate. */
+export function formatStatus(tokens: number | null | undefined): string {
+	if (typeof tokens !== "number") {
 		return "CONTEXT USAGE PENDING";
 	}
 
@@ -25,14 +25,16 @@ function formatStatus(ctx: ExtensionContext): string {
 }
 
 function updateWidget(ctx: ExtensionContext): void {
-	if (ctx.hasUI) {
-		ctx.ui.setWidget(STATUS_KEY, [formatStatus(ctx)], {
-			placement: "aboveEditor"
-		});
+	if (!ctx.hasUI) {
+		return;
 	}
+	ctx.ui.setWidget(WIDGET_KEY, [formatStatus(ctx.getContextUsage()?.tokens)], {
+		placement: "aboveEditor"
+	});
 }
 
 export default function smartZone(pi: ExtensionAPI): void {
+	// Each of these events can change Pi's active context usage.
 	pi.on("session_start", (_event, ctx) => updateWidget(ctx));
 	pi.on("turn_end", (_event, ctx) => updateWidget(ctx));
 	pi.on("model_select", (_event, ctx) => updateWidget(ctx));
@@ -40,7 +42,7 @@ export default function smartZone(pi: ExtensionAPI): void {
 	pi.on("session_tree", (_event, ctx) => updateWidget(ctx));
 	pi.on("session_shutdown", (_event, ctx) => {
 		if (ctx.hasUI) {
-			ctx.ui.setWidget(STATUS_KEY, undefined);
+			ctx.ui.setWidget(WIDGET_KEY, undefined);
 		}
 	});
 }

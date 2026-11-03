@@ -12,6 +12,12 @@ Pi Smart Zone is a Pi extension that shows the active context usage reported by 
 
 ## Widget states
 
+The widget is a single line above the editor:
+
+```text
+SMART ZONE · 84,213 tokens
+```
+
 The thresholds are fixed heuristics, not model-specific limits:
 
 | State | Context usage | Example widget line |
@@ -78,29 +84,9 @@ Once loaded in an interactive Pi session, the widget appears above the editor. T
 - **The widget appears twice:** An older manually copied extension may still be in an extensions directory, for example `~/.pi/agent/extensions/`. Remove that old `smart-zone` copy and reload Pi, leaving only the package installation enabled.
 - **Package installation fails:** Check that the source is spelled correctly and that npm or GitHub is reachable. The npm package is unavailable until `0.1.0`; use the GitHub command in the meantime. `pi install` reports installation failures. If Pi warns that a configured package failed at startup, it skips that package's resources and retries at the next start or `/reload`.
 
-## Development
+## Contributing
 
-Install the pinned tools and locked development dependencies from the repository root:
-
-```sh
-mise install
-mise run install
-```
-
-Common development tasks:
-
-| Command | Purpose |
-| --- | --- |
-| `mise run typecheck` | Type-check the extension without emitting files. |
-| `mise run lint` | Check code linting and formatting. |
-| `mise run format` | Format code and JSON files. |
-| `mise run test` | Run the extension behavior tests. |
-| `mise run pack:check` | Verify the exact files included in the npm package. |
-| `mise run workflow:lint` | Lint GitHub Actions workflows with actionlint and zizmor. |
-| `mise run renovate:validate` | Validate the Renovate configuration with the pinned validator. |
-| `mise run check` | Run type-checking, lint, workflow lint, Renovate validation, tests, and the package-contents check. |
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contributor setup, task details, and the Conventional Commit rules used by the release process. Release automation prepares a release PR; merging it to `main` triggers the release workflow. npm publishing remains disabled until the maintainer approves the first public `0.1.0` release.
+Development setup, the `mise run check` quality gate, and commit conventions are in [CONTRIBUTING.md](CONTRIBUTING.md). Design decisions are recorded in [docs/adr/](docs/adr/) and terms in [GLOSSARY.md](GLOSSARY.md). Report vulnerabilities as described in [SECURITY.md](SECURITY.md). Maintainers: see [docs/releasing.md](docs/releasing.md).
 
 ## License
 
