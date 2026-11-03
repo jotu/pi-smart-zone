@@ -26,6 +26,7 @@ Run tasks from the repository root:
 | `mise run workflow:lint` | Lint GitHub Actions workflows with actionlint and zizmor. |
 | `mise run renovate:validate` | Validate the Renovate configuration with the pinned CLI. |
 | `mise run test:min-node` | Run the tests on the minimum supported Node.js version (CI runs this too). |
+| `mise run commits:lint` | Check that your commits since `origin/main` are Conventional Commits (CI also checks the PR title). |
 | `mise run check` | Run typecheck, lint, workflow lint, Renovate validation, tests, and the package-contents check. |
 
 The tasks use Bash and are intended to work on macOS and Linux.
@@ -39,6 +40,8 @@ Only the extension source and package documents are published: `extensions/smart
 ## Commit messages
 
 Use [Conventional Commits](https://www.conventionalcommits.org/), for example `feat: add a widget option` or `fix: handle missing context usage`. Before version 1.0.0, `feat` commits and breaking changes bump the minor version; `fix` commits bump the patch version. Mark breaking changes with `!` in the commit header and describe them in a `BREAKING CHANGE:` footer.
+
+The pull request title must also be a Conventional Commit; CI enforces both. It becomes the squash-merge message.
 
 ## Releases
 

@@ -29,6 +29,11 @@ description = "Run the Node.js test suite"
 shell = "bash -euo pipefail -c"
 run = "node --test 'test/**/*.test.ts'"
 
+[tasks."commits:lint"]
+description = "Check that commit subjects since origin/main are Conventional Commits"
+shell = "bash -euo pipefail -c"
+run = "bash scripts/commit-lint.sh --range origin/main..HEAD"
+
 [tasks."pack:check"]
 description = "Verify the exact npm package file list"
 shell = "bash -euo pipefail -c"
