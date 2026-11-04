@@ -1,0 +1,28 @@
+amends "package://github.com/jdx/hk/releases/download/v2.10.0/hk@2.10.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.10.0/hk@2.10.0#/Builtins.pkl"
+
+// Format and lint with the repository's pinned Biome (not a global one).
+local biome = (Builtins.biome) {
+  check = "./node_modules/.bin/biome check --no-errors-on-unmatched {{files}}"
+  fix = "./node_modules/.bin/biome check --write --no-errors-on-unmatched {{files}}"
+}
+
+// Shared by `hk check`, `hk fix`, and the pre-commit hook (staged files only).
+steps {
+  ["biome"] = biome
+}
+
+hooks {
+  // Pre-push: lint, type-check, and run the tests before anything leaves the machine.
+  ["pre-push"] {
+    steps {
+      ["biome"] = biome
+      ["typecheck"] {
+        check = "mise run typecheck"
+      }
+      ["test"] {
+        check = "mise run test"
+      }
+    }
+  }
+}

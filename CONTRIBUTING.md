@@ -11,6 +11,17 @@ mise run install
 
 `mise run install` uses the committed lockfile and skips package lifecycle scripts.
 
+Install the Git hooks once per clone (they are managed by [hk](https://hk.jdx.dev) and configured in `hk.pkl`):
+
+```sh
+mise run hooks:install
+```
+
+- **pre-commit:** Biome formats and lints the staged files and stages the fixes.
+- **pre-push:** Biome, type-check, and the test suite must pass.
+
+Skip them for one command with `HK=0 git commit` or `git push --no-verify` only when necessary; CI runs the full checks regardless.
+
 ## Tasks
 
 Run tasks from the repository root:
@@ -28,6 +39,8 @@ Run tasks from the repository root:
 | `mise run test:min-node` | Run the tests on the minimum supported Node.js version (CI runs this too). |
 | `mise run test:latest-pi` | Type-check and test against the latest Pi 1.x (modifies `node_modules` only; CI runs this too). |
 | `mise run commits:lint` | Check that your commits since `origin/main` are Conventional Commits (CI also checks the PR title). |
+| `mise run hooks:install` | Install the hk Git hooks (pre-commit and pre-push). |
+| `mise run hooks:validate` | Validate `hk.pkl`. |
 | `mise run check` | Run typecheck, lint, workflow lint, Renovate validation, tests, and the package-contents check. |
 
 The tasks use Bash and are intended to work on macOS and Linux.

@@ -3,6 +3,7 @@
 npm.package_manager = "npm"
 
 [tools]
+hk = "2.10.0"
 node = "24.22.2"
 actionlint = "1.7.12"
 zizmor = "1.31.1"
@@ -12,6 +13,16 @@ zizmor = "1.31.1"
 description = "Install locked development dependencies without lifecycle scripts"
 shell = "bash -euo pipefail -c"
 run = "npm ci --ignore-scripts"
+
+[tasks."hooks:install"]
+description = "Install the Git hooks (pre-commit and pre-push) managed by hk"
+shell = "bash -euo pipefail -c"
+run = "hk install --mise"
+
+[tasks."hooks:validate"]
+description = "Validate the hk hook configuration"
+shell = "bash -euo pipefail -c"
+run = "hk validate"
 
 [tasks.typecheck]
 description = "Type-check the extension without emitting files"
