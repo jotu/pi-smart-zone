@@ -1,3 +1,7 @@
+[settings]
+# Resolve npm: tools with npm (not mise's newer aube default) so installs match local and CI.
+npm.package_manager = "npm"
+
 [tools]
 node = "24.22.2"
 actionlint = "1.7.12"
