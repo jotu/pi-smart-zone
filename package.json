@@ -1,6 +1,6 @@
 {
 	"name": "@jotu_myraas/pi-smart-zone",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "Pi extension that shows whether the active context is in the smart zone, drifting, or due for a refocus.",
 	"keywords": [
 		"pi-package",
