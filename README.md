@@ -3,6 +3,7 @@
 [![License: MIT](https://img.shields.io/github/license/jotu/pi-smart-zone)](LICENSE)
 [![Project Status: Pre-release](https://img.shields.io/badge/Project%20Status-Pre--release-orange)](#pi-smart-zone)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/jotu/pi-smart-zone/badge)](https://scorecard.dev/viewer/?uri=github.com/jotu/pi-smart-zone)
+[![CodeScene Average Code Health](https://codescene.io/projects/87515/status-badges/average-code-health)](https://codescene.io/projects/87515)
 
 Pi Smart Zone is a Pi extension that shows the active context usage reported by Pi above the editor. Its labels are heuristics about when reasoning quality may drift—not guarantees about model quality or context limits. The extension never compacts, resets, or otherwise changes your session; you stay in control.
 
